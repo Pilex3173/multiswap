@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Multichain Swap</title>
     <style>
-      /* Background seluruh halaman */
+      /* Background seluruh halaman: hijau tua */
       body {
         margin: 0;
         padding: 0;
-        background-color: #e0f7fa; /* biru muda lembut */
+        background-color: #1b5e20; /* dark green */
         font-family: sans-serif;
+        color: #fff;
       }
       /* Bingkai putih dengan border emas */
       #app-container {
@@ -20,35 +21,54 @@
         min-height: 100vh;
         display: flex;
       }
-      /* Sidebar pilihan chain */
+      /* Sidebar utama */
       #sidebar {
-        width: 200px;
-        background-color: #fafafa;
-        border-right: 1px solid #ddd;
+        width: 240px;
+        background-color: #2e7d32;
         padding: 1rem;
+        display: flex;
+        flex-direction: column;
       }
       #sidebar h2 {
-        margin-top: 0;
-        font-size: 1.2rem;
+        margin: 0 0 1rem;
+        font-size: 1.4rem;
+        color: #fff;
       }
-      #sidebar ul {
-        list-style: none;
-        padding: 0;
+      #sidebar .panel {
+        margin-bottom: 1rem;
       }
-      #sidebar li {
-        margin: 0.5rem 0;
-      }
-      #sidebar button {
-        width: 100%;
-        padding: 0.5rem;
-        background: #e0f7fa;
-        border: 1px solid gold;
+      #sidebar .panel a {
+        display: block;
+        background: #388e3c;
+        color: #fff;
+        text-decoration: none;
+        padding: 0.6rem;
         border-radius: 4px;
-        cursor: pointer;
-        text-align: left;
+        margin: 0.3rem 0;
+        transition: background 0.2s;
       }
-      #sidebar button:hover {
-        background: #b2ebf2;
+      #sidebar .panel a:hover {
+        background: #66bb6a;
+      }
+      /* Social media section */
+      #social {
+        margin-top: auto;
+      }
+      #social a {
+        display: flex;
+        align-items: center;
+        margin: 0.3rem 0;
+        text-decoration: none;
+        color: #fff;
+        transition: color 0.2s;
+      }
+      #social a img {
+        width: 20px;
+        height: 20px;
+        margin-right: 0.5rem;
+      }
+      #social a:hover {
+        color: #cddc39; /* light lime */
       }
       /* Area konten utama */
       #main {
@@ -60,27 +80,51 @@
   <body>
     <div id="app-container">
       <nav id="sidebar">
-        <h2>Pilih Chain</h2>
-        <ul>
-          <li><button data-chain="helios">Helios Testnet</button></li>
-          <li><button data-chain="lumera">Lumera Testnet</button></li>
-          <li><button data-chain="empe">EMPE Testnet</button></li>
-          <li><button data-chain="xos">XOS Testnet</button></li>
-        </ul>
+        <h2>Menu</h2>
+
+        <div class="panel">
+          <a href="https://explore.pilex.web.id/" target="_blank">
+            🔍 Explore
+          </a>
+          <a href="https://www.pilex.web.id" target="_blank">
+            🏠 Website Resmi
+          </a>
+        </div>
+
+        <div class="panel">
+          <h2>Sosial Media</h2>
+          <div id="social">
+            <a href="https://twitter.com/ardihandoyo" target="_blank">
+              <img src="https://cdn.jsdelivr.net/npm/simple-icons@v8/icons/twitter.svg" alt="X" /> X: @ardihandoyo
+            </a>
+            <a href="https://github.com/Pilex3173" target="_blank">
+              <img src="https://cdn.jsdelivr.net/npm/simple-icons@v8/icons/github.svg" alt="GitHub" /> GitHub: @Pilex3173
+            </a>
+            <a href="https://discord.gg/rahmatardihando" target="_blank">
+              <img src="https://cdn.jsdelivr.net/npm/simple-icons@v8/icons/discord.svg" alt="Discord" /> Discord: rahmatardihando
+            </a>
+          </div>
+        </div>
       </nav>
+
       <main id="main">
         <div id="app"></div>
       </main>
     </div>
+
     <script type="module" src="/src/main.ts"></script>
     <script>
-      // Contoh simple handler sidebar: kirim event ke Vue app
-      document.querySelectorAll('#sidebar button').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const chain = btn.getAttribute('data-chain')
-          window.dispatchEvent(new CustomEvent('chain-select', { detail: chain }))
+      // Event dispatch untuk chain-select (tetap ada jika digunakan Vue)
+      document
+        .querySelectorAll('#sidebar button[data-chain]')
+        .forEach(btn => {
+          btn.addEventListener('click', () => {
+            const chain = btn.getAttribute('data-chain')
+            window.dispatchEvent(
+              new CustomEvent('chain-select', { detail: chain })
+            )
+          })
         })
-      })
     </script>
   </body>
 </html>
