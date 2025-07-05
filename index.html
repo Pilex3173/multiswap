@@ -1,236 +1,263 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Multichain Swap</title>
-    <style>
-      body {
-        margin: 0;
-        padding: 0;
-        font-family: sans-serif;
-        background: linear-gradient(135deg, #0d1b1e, #1b5e20);
-        color: #fff;
-        background-image: url('https://www.transparenttextures.com/patterns/black-linen.png');
-      }
-      #app-container {
-        display: flex;
-        min-height: 100vh;
-        background: #ffffff;
-        border: 5px solid gold;
-        transition: all 0.3s;
-      }
-      #sidebar {
-        width: 260px;
-        background-color: #1b3c1b;
-        padding: 1rem;
-        display: flex;
-        flex-direction: column;
-        transition: all 0.3s;
-      }
-      #sidebar.hidden {
-        width: 0;
-        padding: 0;
-        overflow: hidden;
-      }
-      #toggle-sidebar {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        background: #388e3c;
-        color: white;
-        border: none;
-        padding: 0.5rem;
-        cursor: pointer;
-        z-index: 999;
-        border-radius: 4px;
-      }
-      #sidebar h2 {
-        margin: 0 0 0.5rem;
-        color: #fff;
-        font-size: 1.2rem;
-        border-bottom: 1px solid #4caf50;
-        padding-bottom: 0.3rem;
-      }
-      .panel-box {
-        background: #234522;
-        border: 2px solid #66bb6a;
-        border-radius: 6px;
-        padding: 0.8rem;
-        margin-bottom: 1rem;
-      }
-      .panel-box button,
-      .panel-box a {
-        display: block;
-        width: 100%;
-        background: #388e3c;
-        color: #fff;
-        border: none;
-        border-radius: 4px;
-        padding: 0.6rem;
-        margin: 0.4rem 0;
-        text-align: center;
-        cursor: pointer;
-        transition: background 0.2s;
-        text-decoration: none;
-      }
-      .panel-box button:hover,
-      .panel-box a:hover {
-        background: #66bb6a;
-      }
-      #connect-box {
-        background: #004d40;
-        border: 2px solid #26a69a;
-        padding: 1rem;
-        border-radius: 6px;
-        text-align: center;
-        margin-bottom: 1rem;
-      }
-      #connect-box button {
-        background: #26a69a;
-        margin-top: 0.6rem;
-        color: #fff;
-        border: none;
-        padding: 0.5rem 1rem;
-        border-radius: 4px;
-        cursor: pointer;
-      }
-      #main {
-        flex: 1;
-        padding: 1.5rem;
-        background: rgba(0, 0, 0, 0.8);
-        background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
-        color: white;
-        position: relative;
-      }
-      #main h1 {
-        color: #fff;
-      }
-      #swap-interface {
-        background: rgba(255, 255, 255, 0.05);
-        border: 2px solid #4caf50;
-        border-radius: 10px;
-        padding: 2rem;
-        max-width: 400px;
-        margin-top: 2rem;
-      }
-      #swap-interface input {
-        width: 100%;
-        padding: 0.6rem;
-        margin-bottom: 1rem;
-        border-radius: 6px;
-        border: none;
-        background: #2e7d32;
-        color: #fff;
-        font-size: 1rem;
-      }
-      #swap-interface button {
-        width: 100%;
-        padding: 0.8rem;
-        background: #43a047;
-        color: white;
-        border: none;
-        border-radius: 6px;
-        font-size: 1.1rem;
-        cursor: pointer;
-        transition: background 0.2s;
-      }
-      #swap-interface button:hover {
-        background: #66bb6a;
-      }
-    </style>
-  </head>
-  <body>
-    <button id="toggle-sidebar">☰</button>
-    <div id="app-container">
-      <nav id="sidebar">
-        <h2>Wallet</h2>
-        <div id="connect-box">
-          <div>Not Connected</div>
-          <button id="btn-connect">Connect Wallet</button>
-        </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multichain Swap</title>
+    <link href="https://fonts.googleapis.com/css2?family=Scheherazade+New&display=swap" rel="stylesheet" />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+        background: linear-gradient(135deg, #0d1b1e, #1b5e20);
+        color: #fff;
+        background-image: url('https://www.transparenttextures.com/patterns/black-linen.png');
+      }
+      #app-container {
+        display: flex;
+        min-height: 100vh;
+        background: #ffffff;
+        border: 5px solid gold;
+        transition: all 0.3s;
+      }
+      #sidebar {
+        width: 260px;
+        background-color: #1b3c1b;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        transition: all 0.3s;
+      }
+      #sidebar.hidden {
+        width: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+      #toggle-sidebar {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: #388e3c;
+        color: white;
+        border: none;
+        padding: 0.5rem;
+        cursor: pointer;
+        z-index: 999;
+        border-radius: 4px;
+      }
+      #sidebar h2 {
+        margin: 0 0 0.5rem;
+        color: #fff;
+        font-size: 1.2rem;
+        border-bottom: 1px solid #4caf50;
+        padding-bottom: 0.3rem;
+      }
+      .panel-box {
+        background: #234522;
+        border: 2px solid #66bb6a;
+        border-radius: 6px;
+        padding: 0.8rem;
+        margin-bottom: 1rem;
+      }
+      .panel-box button,
+      .panel-box a {
+        display: block;
+        width: 100%;
+        background: #388e3c;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        padding: 0.6rem;
+        margin: 0.4rem 0;
+        text-align: center;
+        cursor: pointer;
+        transition: background 0.2s;
+        text-decoration: none;
+      }
+      .panel-box button:hover,
+      .panel-box a:hover {
+        background: #66bb6a;
+      }
+      #connect-box {
+        background: #004d40;
+        border: 2px solid #26a69a;
+        padding: 1rem;
+        border-radius: 6px;
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+      #connect-box .title {
+        font-family: 'Scheherazade New', serif;
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+      }
+      #connect-box button {
+        background: #26a69a;
+        margin-top: 0.4rem;
+        color: #fff;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      #wallet-status {
+        margin-top: 0.6rem;
+        font-size: 0.95rem;
+        color: #a7ffeb;
+      }
+      #main {
+        flex: 1;
+        padding: 1.5rem;
+        background: rgba(0, 0, 0, 0.8);
+        background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+        color: white;
+        position: relative;
+      }
+      #main h1 {
+        color: #fff;
+      }
+      #swap-interface {
+        background: rgba(255, 255, 255, 0.05);
+        border: 2px solid #4caf50;
+        border-radius: 10px;
+        padding: 2rem;
+        max-width: 400px;
+        margin-top: 2rem;
+      }
+      #swap-interface input {
+        width: 100%;
+        padding: 0.6rem;
+        margin-bottom: 1rem;
+        border-radius: 6px;
+        border: none;
+        background: #2e7d32;
+        color: #fff;
+        font-size: 1rem;
+      }
+      #swap-interface button {
+        width: 100%;
+        padding: 0.8rem;
+        background: #43a047;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      #swap-interface button:hover {
+        background: #66bb6a;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="toggle-sidebar">☰</button>
+    <div id="app-container">
+      <nav id="sidebar">
+        <h2>Wallet</h2>
+        <div id="connect-box">
+          <div class="title">PILEX SWAP</div>
+          <button id="btn-connect">Connect Wallet</button>
+          <div id="wallet-status">Not Connected</div>
+        </div>
 
-        <h2>Chain</h2>
-        <div class="panel-box" id="chain-box">
-          <button data-chain="helios">Helios Testnet</button>
-          <button data-chain="lumera">Lumera Testnet</button>
-          <button data-chain="empe">EMPE Testnet</button>
-          <button data-chain="xos">XOS Testnet</button>
-        </div>
+        <h2>Chain</h2>
+        <div class="panel-box" id="chain-box">
+          <button data-chain="helios">Helios Testnet</button>
+          <button data-chain="lumera">Lumera Testnet</button>
+          <button data-chain="empe">EMPE Testnet</button>
+          <button data-chain="xos">XOS Testnet</button>
+        </div>
 
-        <h2>Swap Pair</h2>
-        <div class="panel-box" id="pair-box">
-          <button data-pair="helios/usdt">Helios / USDT</button>
-          <button data-pair="helios/usdc">Helios / USDC</button>
-          <button data-pair="helios/pilex">Helios / PILEX</button>
-        </div>
+        <h2>Swap Pair</h2>
+        <div class="panel-box" id="pair-box">
+          <button data-pair="helios/usdt">Helios / USDT</button>
+          <button data-pair="helios/usdc">Helios / USDC</button>
+          <button data-pair="helios/pilex">Helios / PILEX</button>
+        </div>
 
-        <div style="margin-top:auto">
-          <h2>Explore & Website</h2>
-          <div class="panel-box">
-            <a href="https://explore.pilex.web.id/" target="_blank">🔍 Explore</a>
-            <a href="https://www.pilex.web.id" target="_blank">🏠 Website Resmi</a>
-          </div>
+        <div style="margin-top:auto">
+          <h2>Explore & Website</h2>
+          <div class="panel-box">
+            <a href="https://explore.pilex.web.id/" target="_blank">🔍 Explore</a>
+            <a href="https://www.pilex.web.id" target="_blank">🏠 Website Resmi</a>
+          </div>
 
-          <h2>Sosial Media</h2>
-          <div class="panel-box">
-            <a href="https://twitter.com/ardihandoyo" target="_blank">X: @ardihandoyo</a>
-            <a href="https://github.com/Pilex3173" target="_blank">GitHub: @Pilex3173</a>
-            <a href="https://discord.gg/rahmatardihando" target="_blank">Discord: rahmatardihando</a>
-          </div>
-        </div>
-      </nav>
+          <h2>Sosial Media</h2>
+          <div class="panel-box">
+            <a href="https://twitter.com/ardihandoyo" target="_blank">X: @ardihandoyo</a>
+            <a href="https://github.com/Pilex3173" target="_blank">GitHub: @Pilex3173</a>
+            <a href="https://discord.gg/rahmatardihando" target="_blank">Discord: rahmatardihando</a>
+          </div>
+        </div>
+      </nav>
 
-      <main id="main">
-        <h1>Multichain Swap Interface</h1>
-        <div id="swap-interface">
-          <label for="from-token">From Token:</label>
-          <input type="text" id="from-token" placeholder="e.g., Helios">
+      <main id="main">
+        <h1>Multichain Swap Interface</h1>
+        <div id="swap-interface">
+          <label for="from-token">From Token:</label>
+          <input type="text" id="from-token" placeholder="e.g., Helios">
 
-          <label for="to-token">To Token:</label>
-          <input type="text" id="to-token" placeholder="e.g., USDT">
+          <label for="to-token">To Token:</label>
+          <input type="text" id="to-token" placeholder="e.g., USDT">
 
-          <button id="btn-swap">Swap</button>
-        </div>
-      </main>
-    </div>
+          <button id="btn-swap">Swap</button>
+        </div>
 
-    <script type="module" src="/src/main.ts"></script>
-    <script>
-      document.getElementById('btn-connect').addEventListener('click', async () => {
-        if (!window.keplr) return alert('Keplr not found');
-        await window.keplr.enable('helios-42000');
-        const signer = window.getOfflineSigner('helios-42000');
-        const accounts = await signer.getAccounts();
-        document.querySelector('#connect-box div').textContent = accounts[0].address;
-      });
+        <div style="margin-top: 3rem;">
+          <h2>The Future of Finance</h2>
+          <p style="max-width: 600px; line-height: 1.6;">
+            Cryptocurrencies and blockchain technology are rapidly reshaping the financial landscape. With decentralized protocols, global access, and transparent transactions, crypto represents a paradigm shift toward financial inclusion and innovation. Pilex Swap is your gateway into this decentralized future — fast, secure, and multichain.
+          </p>
+        </div>
+      </main>
+    </div>
 
-      document.querySelectorAll('#chain-box button').forEach(btn => {
-        btn.addEventListener('click', () => {
-          window.dispatchEvent(new CustomEvent('chain-select', {
-            detail: btn.dataset.chain
-          }));
-        });
-      });
+    <script>
+      document.getElementById('btn-connect').addEventListener('click', async () => {
+        if (!window.keplr) {
+          alert('Keplr not found');
+          return;
+        }
+        try {
+          await window.keplr.enable('helios-42000');
+          const signer = window.getOfflineSigner('helios-42000');
+          const accounts = await signer.getAccounts();
+          const address = accounts[0].address;
+          document.getElementById('wallet-status').textContent = address;
+        } catch (err) {
+          console.error(err);
+          document.getElementById('wallet-status').textContent = 'Connection Failed';
+        }
+      });
 
-      document.querySelectorAll('#pair-box button').forEach(btn => {
-        btn.addEventListener('click', () => {
-          window.dispatchEvent(new CustomEvent('pair-select', {
-            detail: btn.dataset.pair
-          }));
-        });
-      });
+      document.querySelectorAll('#chain-box button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          window.dispatchEvent(new CustomEvent('chain-select', {
+            detail: btn.dataset.chain
+          }));
+        });
+      });
 
-      document.getElementById('toggle-sidebar').addEventListener('click', () => {
-        document.getElementById('sidebar').classList.toggle('hidden');
-      });
+      document.querySelectorAll('#pair-box button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          window.dispatchEvent(new CustomEvent('pair-select', {
+            detail: btn.dataset.pair
+          }));
+        });
+      });
 
-      document.getElementById('btn-swap').addEventListener('click', () => {
-        const from = document.getElementById('from-token').value;
-        const to = document.getElementById('to-token').value;
-        alert(`Swapping from ${from} to ${to}...`);
-        // Implement your actual swap logic here
-      });
-    </script>
-  </body>
+      document.getElementById('toggle-sidebar').addEventListener('click', () => {
+        document.getElementById('sidebar').classList.toggle('hidden');
+      });
+
+      document.getElementById('btn-swap').addEventListener('click', () => {
+        const from = document.getElementById('from-token').value;
+        const to = document.getElementById('to-token').value;
+        alert(`Swapping from ${from} to ${to}...`);
+      });
+    </script>
+  </body>
 </html>
