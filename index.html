@@ -4,9 +4,83 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Multichain Swap</title>
+    <style>
+      /* Background seluruh halaman */
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #e0f7fa; /* biru muda lembut */
+        font-family: sans-serif;
+      }
+      /* Bingkai putih dengan border emas */
+      #app-container {
+        box-sizing: border-box;
+        background-color: #ffffff;
+        border: 5px solid gold;
+        min-height: 100vh;
+        display: flex;
+      }
+      /* Sidebar pilihan chain */
+      #sidebar {
+        width: 200px;
+        background-color: #fafafa;
+        border-right: 1px solid #ddd;
+        padding: 1rem;
+      }
+      #sidebar h2 {
+        margin-top: 0;
+        font-size: 1.2rem;
+      }
+      #sidebar ul {
+        list-style: none;
+        padding: 0;
+      }
+      #sidebar li {
+        margin: 0.5rem 0;
+      }
+      #sidebar button {
+        width: 100%;
+        padding: 0.5rem;
+        background: #e0f7fa;
+        border: 1px solid gold;
+        border-radius: 4px;
+        cursor: pointer;
+        text-align: left;
+      }
+      #sidebar button:hover {
+        background: #b2ebf2;
+      }
+      /* Area konten utama */
+      #main {
+        flex: 1;
+        padding: 1rem;
+      }
+    </style>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app-container">
+      <nav id="sidebar">
+        <h2>Pilih Chain</h2>
+        <ul>
+          <li><button data-chain="helios">Helios Testnet</button></li>
+          <li><button data-chain="lumera">Lumera Testnet</button></li>
+          <li><button data-chain="empe">EMPE Testnet</button></li>
+          <li><button data-chain="xos">XOS Testnet</button></li>
+        </ul>
+      </nav>
+      <main id="main">
+        <div id="app"></div>
+      </main>
+    </div>
     <script type="module" src="/src/main.ts"></script>
+    <script>
+      // Contoh simple handler sidebar: kirim event ke Vue app
+      document.querySelectorAll('#sidebar button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const chain = btn.getAttribute('data-chain')
+          window.dispatchEvent(new CustomEvent('chain-select', { detail: chain }))
+        })
+      })
+    </script>
   </body>
 </html>
